@@ -121,7 +121,7 @@
 
     .pesan_error {
       color : var(--merah);
-      font : 12px 'Poppins', 'sans-serif';
+      font : 12px 'Poppins', sans-serif;
       margin-top : -15px;
       /* display : none; */
     }
@@ -175,21 +175,49 @@
       let txt_username = document.getElementById("txt_username");
       let txt_password = document.getElementById("txt_password"); 
       let err_username = document.getElementById("err_username");
-      let err_password = document.getElementById("err_password"); 
+      let err_password = document.getElementById("err_password");
 
-      // cek apakah username apakah sudah diisi atau belum
+      let status_username,status_password;
+
+      // cek apakah password apakah sudah diisi atau belum
       if( txt_username.value === "")
       {
+        // manipulasi properties css di js
+        err_username.style.display = 'block';
         err_username.innerHTML = "Username harus diisi!";
+        // isi nilai status username
+        status_username = 0;
       } else {
+        err_username.style.display = 'none';
         err_username.innerHTML = "";
+        // isi nilai status username
+        status_username = 1;
       }
 
       if( txt_password.value === "")
       {
+        err_password.style.display = 'block';
         err_password.innerHTML = "Password harus diisi!";
+        // isi nilai status password
+        status_password = 0;
       } else {
+        err_password.style.display = 'none';
         err_password.innerHTML = "";
+        // isi nilai status password
+        status_password = 1;
+      }
+
+      // cek kondisi apakah status username = 1 dan password = 1
+      if(status_username === 1 && status_password === 1)
+      {
+        //cek apakah username dan password benar
+        if(txt_username.value === "KA" && txt_password.value === "FTIK")
+        {
+          // alihkan ke halaman (controller) "Dashboard"
+          location.href='<?php echo base_url(); ?>';
+        } else {
+          alert('username atau password salah');
+        }
       }
     }
     
