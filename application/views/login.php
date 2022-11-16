@@ -214,19 +214,55 @@
         if(txt_username.value === "KA" && txt_password.value === "FTIK")
         {
           // alihkan ke halaman (controller) "Dashboard"
-          location.href='<?php echo base_url(); ?>';
+          //location.href='<?php echo base_url(); ?>';
+          // panggil fungsi gotoDashboard
+          gotoDashboard();
         } else {
           alert('username atau password salah');
         }
       }
     }
     
+    // buat fungsi untuk ke halaman dashboard
+    function gotoDashboard()
+    {
+        // buat parameter untuk dijadikan session
+        let data = {
+          'username' : txt_username.value
+        }
+
+        fetch('<?php echo site_url("Dashboard/setSession"); ?>',{
+          method: 'POST',
+          headers: {
+            'Content-type' : 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+
+        //respon fungsi json
+        .then(function(response){
+          return response.json();
+        })
+
+        //dialihkan ke halaman Dashboard
+        .then(function(data){
+          //jika hasil == 1
+          if(data.hasil === 1)
+          {
+            location.href = '<?php echo base_url(""); ?>';
+          } else {
+            alert(data.hasil);
+          }
+        })
+
+    }
     // buat fungsi setRefresh()
     function setRefresh()
     {
       // reload halaman login (controller)
       location.href='<?php echo site_url("Login"); ?>';
     }
+
   </script>
 </body>
 
