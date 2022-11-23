@@ -162,6 +162,7 @@
   </section>
 
   <script>
+    let status_checkbox;
     // deklarasi id untuk "btn_login"
     let btn_login = document.getElementById("btn_login");
 
@@ -213,8 +214,22 @@
         //cek apakah username dan password benar
         if(txt_username.value === "KA" && txt_password.value === "FTIK")
         {
+          //buat variabel untuk checkbox
+          let chk_ingat = document.getElementById("chk_ingat");
+
+          // jika chk_ingat dipilih
+          if(chk_ingat.checked === true)
+          {
+            status_checkbox = 1;
+          } 
+          // jika chk_ingat tidak dipilih
+          else {
+            status_checkbox = 0;
+          }
+
           // alihkan ke halaman (controller) "Dashboard"
-          //location.href='<?php echo base_url(); ?>';
+          // location.href='<?php echo base_url(); ?>';
+
           // panggil fungsi gotoDashboard
           gotoDashboard();
         } else {
@@ -228,7 +243,9 @@
     {
         // buat parameter untuk dijadikan session
         let data = {
-          'username' : txt_username.value
+          'username': txt_username.value,
+          'password': txt_password.value,
+          'checkbox': status_checkbox,
         }
 
         fetch('<?php echo site_url("Dashboard/setSession"); ?>',{
@@ -249,11 +266,11 @@
           //jika hasil == 1
           if(data.hasil === 1)
           {
-            location.href = '<?php echo base_url(""); ?>';
+            location.href = '<?php echo base_url(); ?>';
           } else {
             alert(data.hasil);
           }
-        })
+        });
 
     }
     // buat fungsi setRefresh()

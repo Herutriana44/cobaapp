@@ -27,13 +27,18 @@
 </head>
 <body>
     <h1>Selamat Datang ...</h1>
-    <button id_button="btn_logout" class="button-primary">
+    <button id="btn_logout" class="button-primary">
         Log out
     </button>
 
     <script>
         //deklarasi variabel untuk "btn_logout"
         let btn_logout = document.getElementById("btn_logout");
+
+        btn_logout.addEventListener('click', function(){
+            //alihkan ke controller dashboard function setLogout
+            location.href='<?php echo site_url("Dashboard/setLogout"); ?>';
+        });
     </script>
 </body>
 </html>
